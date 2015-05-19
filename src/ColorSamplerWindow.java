@@ -1,58 +1,49 @@
-import java.awt.AWTException;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
-import java.awt.Event.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.plaf.ButtonUI;
 
-public class ColorSamplerWindow extends JFrame{
+
+@SuppressWarnings("serial")
+public class ColorSamplerWindow extends JFrame {
 
 	private static JFrame frame;
 	private static JLabel colorSample;
 	private static JToolBar toolbar;
 	private static JLabel colorInfo;
-	private static Border raisedEtched;
+	private static boolean run = true;
+	private static doublePoint frozenMouseLocation = new doublePoint(0,0);
 
 	public ColorSamplerWindow(String title) throws IOException, AWTException {
+
 		initFrame(title);
 		initToolbar();
 		initColorSample();
 		initColorInfo();// /////creatres label & starts tracking value
 		initKeyListener();
-		
-		
-		raisedEtched = BorderFactory.createLineBorder(Color.BLACK);
-				
+
 		frame.pack();
 		frame.setVisible(true);// / draws the frame once all components have
-								// been added
- 
+
+		initColorUpdater();
+		// updater = new colorSamplerUpdater();
+
+		// been added
+		
 	}
 
 	private void initKeyListener() {
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new MyDispatcher());
-		
+		KeyboardFocusManager manager = KeyboardFocusManager
+				.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new MyDispatcher());
+
 	}
 
 	// ////Main JFrame + Menu Bar
-	private static void initFrame(String title) throws IOException {
+	private void initFrame(String title) throws IOException {
 
 		frame = new JFrame();
 		frame.setTitle(title);
@@ -60,14 +51,13 @@ public class ColorSamplerWindow extends JFrame{
 
 	}
 
-	public static JFrame getFrame() {
+	public JFrame getFrame() {
 		return frame;
 
 	}
 
-
 	// ///// Color sample Jlabels
-	private static void initColorSample() throws AWTException {
+	private void initColorSample() throws AWTException {
 
 		colorSample = new JLabel();
 		colorSample.setOpaque(true);
@@ -77,7 +67,7 @@ public class ColorSamplerWindow extends JFrame{
 
 	}
 
-	public static JLabel getColorSample() {
+	public JLabel getColorSample() {
 		return colorSample;
 
 	}
@@ -88,25 +78,30 @@ public class ColorSamplerWindow extends JFrame{
 		frame.getContentPane().add(colorSample, BorderLayout.CENTER);
 	}
 
-		// //// ToolBar
-	private static void initToolbar() {
+	// //// ToolBar
+	private void initToolbar() {
 		toolbar = new JToolBar("Copy Commands");
 		toolbar.setPreferredSize(new Dimension(400, 35));
 		toolbar.setFloatable(false);
 		toolbar.setFocusable(false);
-		
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
 		buttonCopyHex.setPreferredSize(new Dimension(200, 35));
 		buttonCopyHex.setFocusable(false);
-	
+
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					
-						Utilities.setClipboard(screenInfo.getColorHex());	//sets to currrent scren location
-				
+
+					if (run){
+						Utilities.setClipboard(screenInfo.getColorHex()); // sets to current
+					}
+					else{
+						// if program is not running will use paused values	
+						Utilities.setClipboard(screenInfo.getColorHex(frozenMouseLocation));
+					}
+
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -116,35 +111,40 @@ public class ColorSamplerWindow extends JFrame{
 
 		toolbar.add(buttonCopyHex);
 		toolbar.addSeparator();
-		
+
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
 		buttonCopyRGB.setPreferredSize(new Dimension(200, 35));
 		buttonCopyRGB.setFocusable(false);
-		
+
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					Utilities.setClipboard(screenInfo.getColorRGB());
+					
+					if (run){
+						Utilities.setClipboard(screenInfo.getColorRGB());
+					}
+					else{
+						Utilities.setClipboard(screenInfo.getColorRGB(frozenMouseLocation));
+					}
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		
+
 		toolbar.add(buttonCopyRGB);
 		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
 	}
 
-	
 	// ////////////////////// color text values
-	private static void initColorInfo() {
+	private void initColorInfo() {
 		initColorInfoLabel();
 		setColorInfoText("hfjghfgttr");
 	}
 
-	private static void initColorInfoLabel() {
+	private void initColorInfoLabel() {
 
 		colorInfo = new JLabel("", SwingConstants.CENTER);
 		colorInfo.setBackground(new Color(255, 255, 255));
@@ -157,25 +157,47 @@ public class ColorSamplerWindow extends JFrame{
 		colorInfo.setText(text);
 
 	}
-	
-	
 
-	//////////does key listener
+	public static void initColorUpdater() throws AWTException {
+
+		doublePoint mouseLocation;
+		int test = 1;
+		while (test == 1) {
+
+			if (run) {// lets it constantaly run with out having to re call
+						// method which causes it to crash
+				mouseLocation = screenInfo.getMouseCoordinates();
+				ColorSamplerWindow.setColorInfoText("Hex: "
+						+ screenInfo.getColorHex() + "\t\t\t\tRGB: "
+						+ screenInfo.getColorRGB());
+				ColorSamplerWindow.setColorSampleColor(screenInfo.getColor());
+				// bot.delay(500);
+			} else {
+				System.out.print(""); // error is called when this doesnt print
+										// anything out
+			}
+
+		}
+	}
+
+	// ////////does key listener
 	private class MyDispatcher implements KeyEventDispatcher {
-        public boolean dispatchKeyEvent(KeyEvent e) {
-            if (e.getID() == KeyEvent.KEY_PRESSED) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE){///if key pressed
-                	System.out.println("Space");
-                	try {
-						colorSamplerUpdater.switchRun();
-					} catch (AWTException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+		public boolean dispatchKeyEvent(KeyEvent e) {
+			if (e.getID() == KeyEvent.KEY_PRESSED) {
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {// /if key pressed
+
+					if (run) {
+						run = false;
+						frozenMouseLocation.setX(MouseInfo.getPointerInfo().getLocation().getX());
+						frozenMouseLocation.setY(MouseInfo.getPointerInfo().getLocation().getY());
+
+					} else {
+						run = true;
 					}
-                }
-            } 
-            return false;
-        }
-    }
+				}
+			}
+			return false;
+		}
+	}
 
 }
