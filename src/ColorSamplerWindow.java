@@ -5,35 +5,50 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.ButtonUI;
 
-public class ColorSamplerWindow extends JFrame {
+public class ColorSamplerWindow extends JFrame{
 
 	private static JFrame frame;
 	private static JLabel colorSample;
 	private static JToolBar toolbar;
 	private static JLabel colorInfo;
+	private static Border raisedEtched;
 
 	public ColorSamplerWindow(String title) throws IOException, AWTException {
 		initFrame(title);
-		initPanel();
 		initToolbar();
 		initColorSample();
-		initColorInfo();// /////creatres label & starts tracking values
-
+		initColorInfo();// /////creatres label & starts tracking value
+		initKeyListener();
+		
+		
+		raisedEtched = BorderFactory.createLineBorder(Color.BLACK);
+				
 		frame.pack();
 		frame.setVisible(true);// / draws the frame once all components have
 								// been added
+ 
+	}
 
+	private void initKeyListener() {
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new MyDispatcher());
+		
 	}
 
 	// ////Main JFrame + Menu Bar
@@ -50,10 +65,6 @@ public class ColorSamplerWindow extends JFrame {
 
 	}
 
-	// ///////Main Panel
-	public static void initPanel() {
-
-	}
 
 	// ///// Color sample Jlabels
 	private static void initColorSample() throws AWTException {
@@ -82,22 +93,20 @@ public class ColorSamplerWindow extends JFrame {
 		toolbar = new JToolBar("Copy Commands");
 		toolbar.setPreferredSize(new Dimension(400, 35));
 		toolbar.setFloatable(false);
+		toolbar.setFocusable(false);
 		
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
-		//buttonCopyHex.setBorder(new RoundedBorder(15));	// adds rounded border
-		//buttonCopyHex.setForeground(Color.GREEN);
-		buttonCopyHex.setBackground(Color.RED);
 		buttonCopyHex.setPreferredSize(new Dimension(200, 35));
+		buttonCopyHex.setFocusable(false);
 	
-
-
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					Utilities.setClipboard(screenInfo.getColorHex());
 					
+						Utilities.setClipboard(screenInfo.getColorHex());	//sets to currrent scren location
+				
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -106,9 +115,13 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyHex);
-
+		toolbar.addSeparator();
+		
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
+		buttonCopyRGB.setPreferredSize(new Dimension(200, 35));
+		buttonCopyRGB.setFocusable(false);
+		
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
@@ -119,10 +132,8 @@ public class ColorSamplerWindow extends JFrame {
 				}
 			}
 		});
-
-		buttonCopyRGB.setPreferredSize(new Dimension(200, 35));
+		
 		toolbar.add(buttonCopyRGB);
-	
 		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
 	}
 
@@ -146,5 +157,25 @@ public class ColorSamplerWindow extends JFrame {
 		colorInfo.setText(text);
 
 	}
+	
+	
+
+	//////////does key listener
+	private class MyDispatcher implements KeyEventDispatcher {
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE){///if key pressed
+                	System.out.println("Space");
+                	try {
+						colorSamplerUpdater.switchRun();
+					} catch (AWTException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                }
+            } 
+            return false;
+        }
+    }
 
 }

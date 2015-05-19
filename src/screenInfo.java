@@ -21,9 +21,18 @@ public class screenInfo {
 		Robot bot = new Robot();
 		doublePoint mouseLocation = getMouseCoordinates();
 
-		return (bot.getPixelColor( (int)mouseLocation.getX(), (int)mouseLocation.getY()));
+		return (bot.getPixelColor((int)mouseLocation.getX(), (int)mouseLocation.getY()));
 
 	}
+	public static Color getColor(doublePoint location) throws AWTException {
+
+		Robot bot = new Robot();
+		doublePoint mouseLocation = location;
+
+		return (bot.getPixelColor((int)mouseLocation.getX(), (int)mouseLocation.getY()));
+
+	}
+	
 	
 	public static String getColorHex() throws AWTException{
 		Color color = getColor();
@@ -33,6 +42,18 @@ public class screenInfo {
 	}
 	
 	public static String getColorRGB() throws AWTException{
+		Color color = getColor();
+		
+		return (color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+	}
+	public static String getColorHex(doublePoint location) throws AWTException{
+		Color color = getColor();
+		
+		String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+		return hex;
+	}
+	
+	public static String getColorRGB(doublePoint location) throws AWTException{
 		Color color = getColor();
 		
 		return (color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
