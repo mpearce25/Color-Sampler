@@ -45,7 +45,7 @@ public class ColorSamplerWindow extends JFrame {
 		frame.setVisible(true);// / draws the frame once all components have
 								// been added
 
-	}
+	} 
 
 	// ////Main JFrame + Menu Bar
 	private static void initFrame(String title) throws IOException {
@@ -107,6 +107,7 @@ public class ColorSamplerWindow extends JFrame {
 			}
 		});
 
+		buttonCopyHex.setIcon(new ImageIcon("/res/images/colorWheel.png"));
 		buttonCopyHex.setPreferredSize(new Dimension(200, 35));
 		toolbar.add(buttonCopyHex);
 
