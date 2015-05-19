@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Event.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.ButtonUI;
 
 public class ColorSamplerWindow extends JFrame {
 
@@ -27,25 +30,11 @@ public class ColorSamplerWindow extends JFrame {
 		initColorSample();
 		initColorInfo();// /////creatres label & starts tracking values
 
-		
-		
-		/////listener 
-		
-		
-		
-		/*SpaceBarListener listener = new SpaceBarListener();
-		frame.getContentPane().add(listener);
-		listener.getInputMap().put(KeyStroke.getKeyStroke("SPACE"),
-				"Freeze Program");
-		listener.getActionMap().put("Freeze Program", listener.getAction());
-
-		/////end listner*/
-		
 		frame.pack();
 		frame.setVisible(true);// / draws the frame once all components have
 								// been added
 
-	} 
+	}
 
 	// ////Main JFrame + Menu Bar
 	private static void initFrame(String title) throws IOException {
@@ -88,18 +77,27 @@ public class ColorSamplerWindow extends JFrame {
 		frame.getContentPane().add(colorSample, BorderLayout.CENTER);
 	}
 
-	// //// ToolBar
+		// //// ToolBar
 	private static void initToolbar() {
 		toolbar = new JToolBar("Copy Commands");
 		toolbar.setPreferredSize(new Dimension(400, 35));
-		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
+		toolbar.setFloatable(false);
+		
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
+		//buttonCopyHex.setBorder(new RoundedBorder(15));	// adds rounded border
+		//buttonCopyHex.setForeground(Color.GREEN);
+		buttonCopyHex.setBackground(Color.RED);
+		buttonCopyHex.setPreferredSize(new Dimension(200, 35));
+	
+
+
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
 					Utilities.setClipboard(screenInfo.getColorHex());
+					
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -107,8 +105,6 @@ public class ColorSamplerWindow extends JFrame {
 			}
 		});
 
-		buttonCopyHex.setIcon(new ImageIcon("/res/images/colorWheel.png"));
-		buttonCopyHex.setPreferredSize(new Dimension(200, 35));
 		toolbar.add(buttonCopyHex);
 
 		// /////Copy RGB button
@@ -125,10 +121,12 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		buttonCopyRGB.setPreferredSize(new Dimension(200, 35));
-		// buttonCopyRGB.setIcon(new ImageIcon("res/images/colorWheel.png"));
 		toolbar.add(buttonCopyRGB);
+	
+		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
 	}
 
+	
 	// ////////////////////// color text values
 	private static void initColorInfo() {
 		initColorInfoLabel();
