@@ -174,10 +174,7 @@ public class ColorSamplerWindow extends JFrame {
 						+ screenInfo.getColorRGB());
 				ColorSamplerWindow.setColorSampleColor(screenInfo.getColor());
 				// bot.delay(500);
-			} else {
-				System.out.print(""); // error is called when this doesnt print
-										// anything out
-			}
+			} 
 
 		}
 	}
