@@ -162,8 +162,10 @@ public class ColorSamplerWindow extends JFrame {
 
 		doublePoint mouseLocation;
 		int test = 1;
+		Robot bot = new Robot();
 		while (test == 1) {
 
+			bot.delay(50);
 			if (run) {// lets it constantaly run with out having to re call
 						// method which causes it to crash
 				mouseLocation = screenInfo.getMouseCoordinates();
