@@ -23,7 +23,6 @@ public class ColorSamplerWindow extends JFrame {
 
 		// //lookup baloon tip
 		favoritesList = new favorites();
-
 		initFrame(title);
 		initToolbar();
 		initColorSample();
@@ -35,7 +34,6 @@ public class ColorSamplerWindow extends JFrame {
 		frame.setVisible(true);// / draws the frame once all components have
 
 		initColorUpdater();
-		
 
 	}
 
@@ -163,9 +161,11 @@ public class ColorSamplerWindow extends JFrame {
 							JOptionPane.INFORMATION_MESSAGE, icon);
 				} else {
 					try {
+						favoritesList.updateArray(); // adds existing entried
+														// first
 						String name = getFavoriteName();
 
-						favorites.addFavorite(new colorFavorite(screenInfo
+						favoritesList.addFavorite(new colorFavorite(screenInfo
 								.getColor(frozenMouseLocation), name));
 					} catch (AWTException | IOException e) {
 						// TODO Auto-generated catch block
@@ -180,12 +180,13 @@ public class ColorSamplerWindow extends JFrame {
 
 		// /////Favorites
 
-		JButton favorites = new JButton("Favorites");
-		favorites.setPreferredSize(new Dimension(150, 35));
-		favorites.setFocusable(false);
-		favorites.addActionListener(new ActionListener() {
+		JButton favoritesButtton = new JButton("Favorites");
+		favoritesButtton.setPreferredSize(new Dimension(150, 35));
+		favoritesButtton.setFocusable(false);
+		favoritesButtton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
+
 					favoritesList.writeList();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -195,7 +196,7 @@ public class ColorSamplerWindow extends JFrame {
 			}
 		});
 
-		toolbar.add(favorites);
+		toolbar.add(favoritesButtton);
 
 		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
 	}
@@ -241,7 +242,7 @@ public class ColorSamplerWindow extends JFrame {
 		}
 	}
 
-	public static String getFavoriteName() {
+	public static String getFavoriteName() { // //input dialog for name
 
 		// //////create ask name window
 
@@ -254,7 +255,8 @@ public class ColorSamplerWindow extends JFrame {
 				"Enter favorite name", "Add Favorite",
 				JOptionPane.PLAIN_MESSAGE, icon, null, // makes it empty string
 														// box
-				"Favorite #" + nextElement + 1); // +1 is so that names start at
+				"Favorite #" + (nextElement + 1)); // +1 is so that names start
+													// at
 													// #1 not #0
 
 		// If a string was returned, say so.
@@ -271,9 +273,18 @@ public class ColorSamplerWindow extends JFrame {
 						// valid input is entered
 
 	}
+	
+	@SuppressWarnings("unused")
+	public static void addNewFavorite() throws IOException, AWTException{
+		String name = getFavoriteName();
+
+		favoritesList.updateArray();
+		favoritesList.addFavorite(new colorFavorite(screenInfo
+				.getColor(frozenMouseLocation), name));
+	}
 
 	// //////// key listener for space par
-	private class MyDispatcherSpace implements KeyEventDispatcher {
+	private static class MyDispatcherSpace implements KeyEventDispatcher {
 		public boolean dispatchKeyEvent(KeyEvent e) {
 			if (e.getID() == KeyEvent.KEY_PRESSED) {
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {// /if key pressed
@@ -292,6 +303,8 @@ public class ColorSamplerWindow extends JFrame {
 			}
 			return false;
 		}
+		
+		
 	}
 
 	private class MyDispatcherF implements KeyEventDispatcher {
@@ -308,13 +321,13 @@ public class ColorSamplerWindow extends JFrame {
 							JOptionPane.INFORMATION_MESSAGE, icon);
 				} else {
 					try {
-						String name = getFavoriteName();
-
-						favorites.addFavorite(new colorFavorite(screenInfo
-								.getColor(frozenMouseLocation), name));
-					} catch (AWTException | IOException f) {
+						addNewFavorite();
+					} catch (IOException e1) {
 						// TODO Auto-generated catch block
-						f.printStackTrace();
+						e1.printStackTrace();
+					} catch (AWTException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 
 				}
@@ -323,4 +336,6 @@ public class ColorSamplerWindow extends JFrame {
 			return false;
 		}
 	}
+	
+	
 }

@@ -16,7 +16,7 @@ public class favorites {
 
 	
 	
-	public static void addFavorite(colorFavorite favorite) throws IOException {
+	public void addFavorite(colorFavorite favorite) throws IOException {
 		favoritesList.add(favorite);
 
 		writeList();
@@ -44,7 +44,7 @@ public class favorites {
 			return false;
 	}
 
-	private static void updateArray() throws IOException {
+	public static void updateArray() throws IOException {
 
 		File f = new File("list.txt");
 
@@ -67,6 +67,7 @@ public class favorites {
 				fileRead = inFile.readLine();
 
 			}
+			f.delete();
 
 			inFile.close();
 
