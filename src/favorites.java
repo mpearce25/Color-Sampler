@@ -14,6 +14,8 @@ public class favorites {
 		favoritesList = new ArrayList<colorFavorite>();
 	}
 
+	
+	
 	public static void addFavorite(colorFavorite favorite) throws IOException {
 		favoritesList.add(favorite);
 
