@@ -1,0 +1,3 @@
+Name:Yellow,Hex Code:#0f9df8
+Name:Favorite #01,Hex Code:#0007e7
+Name:Favorite #01,Hex Code:#00007e

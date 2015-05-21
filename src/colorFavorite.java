@@ -11,8 +11,8 @@ public class colorFavorite {
 		this.name = name;
 	}
 	public String toString(){
-		//return "Hello2";
-		return "Name: " + name + ",\t" + "Hex Code: " + Utilities.convertToHex(color) ;
+	
+		return "Name:" + name + "," + "Hex Code:" + Utilities.convertToHex(color) ;
 		
 	}
 }

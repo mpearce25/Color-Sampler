@@ -35,6 +35,7 @@ public class ColorSamplerWindow extends JFrame {
 		frame.setVisible(true);// / draws the frame once all components have
 
 		initColorUpdater();
+		
 
 	}
 
@@ -166,7 +167,7 @@ public class ColorSamplerWindow extends JFrame {
 
 						favorites.addFavorite(new colorFavorite(screenInfo
 								.getColor(frozenMouseLocation), name));
-					} catch (AWTException e) {
+					} catch (AWTException | IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -184,6 +185,12 @@ public class ColorSamplerWindow extends JFrame {
 		favorites.setFocusable(false);
 		favorites.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
+				try {
+					favoritesList.writeList();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println(favoritesList);
 			}
 		});
@@ -196,7 +203,7 @@ public class ColorSamplerWindow extends JFrame {
 	// ////////////////////// color text values
 	private void initColorInfo() {
 		initColorInfoLabel();
-		setColorInfoText("hfjghfgttr");
+		setColorInfoText("Color Info");
 	}
 
 	private void initColorInfoLabel() {
@@ -290,32 +297,29 @@ public class ColorSamplerWindow extends JFrame {
 	private class MyDispatcherF implements KeyEventDispatcher {
 
 		public boolean dispatchKeyEvent(KeyEvent e) {
-			System.out.println(e.getID());
-			//if (e.getID() == KeyEvent.VK_SPACE) {
 
-				System.out.println(e.getKeyChar());
-				if (e.getKeyChar() == 'f') {// /if F key pressed
+			if (e.getKeyChar() == 'f' && e.getID() == 402) {// /if F key pressed
 
-					if (run) {
-						ImageIcon icon = new ImageIcon(
-								"/res/images/colorWheel.png", "color wheel");
-						JOptionPane.showMessageDialog(frame,
-								"Please freeze program first.", "Error",
-								JOptionPane.INFORMATION_MESSAGE, icon);
-					} else {
-						try {
-							String name = getFavoriteName();
+				if (run) {
+					ImageIcon icon = new ImageIcon(
+							"/res/images/colorWheel.png", "color wheel");
+					JOptionPane.showMessageDialog(frame,
+							"Please freeze program first.", "Error",
+							JOptionPane.INFORMATION_MESSAGE, icon);
+				} else {
+					try {
+						String name = getFavoriteName();
 
-							favorites.addFavorite(new colorFavorite(screenInfo
-									.getColor(frozenMouseLocation), name));
-						} catch (AWTException f) {
-							// TODO Auto-generated catch block
-							f.printStackTrace();
-						}
-
+						favorites.addFavorite(new colorFavorite(screenInfo
+								.getColor(frozenMouseLocation), name));
+					} catch (AWTException | IOException f) {
+						// TODO Auto-generated catch block
+						f.printStackTrace();
 					}
+
 				}
-			//}
+			}
+
 			return false;
 		}
 	}
