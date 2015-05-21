@@ -3,9 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.*;
-
 
 @SuppressWarnings("serial")
 public class ColorSamplerWindow extends JFrame {
@@ -15,9 +16,13 @@ public class ColorSamplerWindow extends JFrame {
 	private static JToolBar toolbar;
 	private static JLabel colorInfo;
 	private static boolean run = true;
-	private static doublePoint frozenMouseLocation = new doublePoint(0,0);
+	private static doublePoint frozenMouseLocation = new doublePoint(0, 0);
+	private static favorites favoritesList;
 
 	public ColorSamplerWindow(String title) throws IOException, AWTException {
+
+		// //lookup baloon tip
+		favoritesList = new favorites();
 
 		initFrame(title);
 		initToolbar();
@@ -29,10 +34,7 @@ public class ColorSamplerWindow extends JFrame {
 		frame.setVisible(true);// / draws the frame once all components have
 
 		initColorUpdater();
-		// updater = new colorSamplerUpdater();
 
-		// been added
-		
 	}
 
 	private void initKeyListener() {
@@ -87,19 +89,21 @@ public class ColorSamplerWindow extends JFrame {
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
-		buttonCopyHex.setPreferredSize(new Dimension(200, 35));
+		buttonCopyHex.setPreferredSize(new Dimension(150, 35));
 		buttonCopyHex.setFocusable(false);
 
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
 
-					if (run){
-						Utilities.setClipboard(screenInfo.getColorHex()); // sets to current
-					}
-					else{
-						// if program is not running will use paused values	
-						Utilities.setClipboard(screenInfo.getColorHex(frozenMouseLocation));
+					if (run) {
+						Utilities.setClipboard(screenInfo.getColorHex()); // sets
+																			// to
+																			// current
+					} else {
+						// if program is not running will use paused values
+						Utilities.setClipboard(screenInfo
+								.getColorHex(frozenMouseLocation));
 					}
 
 				} catch (AWTException e) {
@@ -110,22 +114,22 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyHex);
-		toolbar.addSeparator();
+		// toolbar.addSeparator();
 
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
-		buttonCopyRGB.setPreferredSize(new Dimension(200, 35));
+		buttonCopyRGB.setPreferredSize(new Dimension(150, 35));
 		buttonCopyRGB.setFocusable(false);
 
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					
-					if (run){
+
+					if (run) {
 						Utilities.setClipboard(screenInfo.getColorRGB());
-					}
-					else{
-						Utilities.setClipboard(screenInfo.getColorRGB(frozenMouseLocation));
+					} else {
+						Utilities.setClipboard(screenInfo
+								.getColorRGB(frozenMouseLocation));
 					}
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
@@ -135,6 +139,49 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyRGB);
+		toolbar.addSeparator();
+
+		// //////////Add to favorites button
+		JButton addFavorite = new JButton("Add Favorite");
+		addFavorite.setPreferredSize(new Dimension(150, 35));
+		addFavorite.setFocusable(false);
+		addFavorite.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				if (run) {
+					ImageIcon icon = new ImageIcon("/res/images/colorWheel.png", "color wheel");
+					JOptionPane.showMessageDialog(frame,
+							"Please freeze program first.", "Error",
+							JOptionPane.INFORMATION_MESSAGE, icon);
+				} else {
+					try {
+						String name = getFavoriteName();
+
+						favorites.addFavorite(new colorFavorite(screenInfo
+								.getColor(frozenMouseLocation), name));
+					} catch (AWTException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			}
+		});
+
+		toolbar.add(addFavorite);
+
+		// /////Favorites
+
+		JButton favorites = new JButton("Favorites");
+		favorites.setPreferredSize(new Dimension(150, 35));
+		favorites.setFocusable(false);
+		favorites.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.out.println(favoritesList);
+			}
+		});
+
+		toolbar.add(favorites);
+
 		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
 	}
 
@@ -174,9 +221,23 @@ public class ColorSamplerWindow extends JFrame {
 						+ screenInfo.getColorRGB());
 				ColorSamplerWindow.setColorSampleColor(screenInfo.getColor());
 				// bot.delay(500);
-			} 
+			}
 
 		}
+	}
+
+	public static String getFavoriteName() {
+
+		// //////create ask name window
+
+		ImageIcon icon = new ImageIcon("/res/images/colorWheel.png",
+				"colorWheel");
+		JOptionPane.showMessageDialog(frame,
+				"Eggs are not supposed to be green.", "Add Favorite",
+				JOptionPane.INFORMATION_MESSAGE, icon);
+
+		return null;
+
 	}
 
 	// ////////does key listener
@@ -187,8 +248,10 @@ public class ColorSamplerWindow extends JFrame {
 
 					if (run) {
 						run = false;
-						frozenMouseLocation.setX(MouseInfo.getPointerInfo().getLocation().getX());
-						frozenMouseLocation.setY(MouseInfo.getPointerInfo().getLocation().getY());
+						frozenMouseLocation.setX(MouseInfo.getPointerInfo()
+								.getLocation().getX());
+						frozenMouseLocation.setY(MouseInfo.getPointerInfo()
+								.getLocation().getY());
 
 					} else {
 						run = true;
