@@ -12,6 +12,10 @@ public class favorites {
 	public static void addFavorite(colorFavorite favorite){
 		favoritesList.add(favorite);
 	}
+	
+	public static ArrayList<colorFavorite> getArray(){
+		return favoritesList;
+	}
 	public String toString(){
 		return favoritesList.toString() ;
 		

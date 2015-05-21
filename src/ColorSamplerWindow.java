@@ -28,7 +28,8 @@ public class ColorSamplerWindow extends JFrame {
 		initToolbar();
 		initColorSample();
 		initColorInfo();// /////creatres label & starts tracking value
-		initKeyListener();
+		initSpaceListener();
+		initFListener();
 
 		frame.pack();
 		frame.setVisible(true);// / draws the frame once all components have
@@ -37,11 +38,17 @@ public class ColorSamplerWindow extends JFrame {
 
 	}
 
-	private void initKeyListener() {
+	private void initSpaceListener() {
 		KeyboardFocusManager manager = KeyboardFocusManager
 				.getCurrentKeyboardFocusManager();
-		manager.addKeyEventDispatcher(new MyDispatcher());
+		manager.addKeyEventDispatcher(new MyDispatcherSpace());
 
+	}
+
+	private void initFListener() {
+		KeyboardFocusManager manager = KeyboardFocusManager
+				.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new MyDispatcherF());
 	}
 
 	// ////Main JFrame + Menu Bar
@@ -148,7 +155,8 @@ public class ColorSamplerWindow extends JFrame {
 		addFavorite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (run) {
-					ImageIcon icon = new ImageIcon("/res/images/colorWheel.png", "color wheel");
+					ImageIcon icon = new ImageIcon(
+							"/res/images/colorWheel.png", "color wheel");
 					JOptionPane.showMessageDialog(frame,
 							"Please freeze program first.", "Error",
 							JOptionPane.INFORMATION_MESSAGE, icon);
@@ -232,16 +240,33 @@ public class ColorSamplerWindow extends JFrame {
 
 		ImageIcon icon = new ImageIcon("/res/images/colorWheel.png",
 				"colorWheel");
-		JOptionPane.showMessageDialog(frame,
-				"Eggs are not supposed to be green.", "Add Favorite",
-				JOptionPane.INFORMATION_MESSAGE, icon);
 
-		return null;
+		int nextElement = favoritesList.getArray().size();
+
+		String s = (String) JOptionPane.showInputDialog(frame,
+				"Enter favorite name", "Add Favorite",
+				JOptionPane.PLAIN_MESSAGE, icon, null, // makes it empty string
+														// box
+				"Favorite #" + nextElement + 1); // +1 is so that names start at
+													// #1 not #0
+
+		// If a string was returned, say so.
+		if ((s != null) && (s.length() > 0)) {
+
+			return s;
+		} else {
+			JOptionPane.showMessageDialog(frame, "Please enter a name",
+					"Error", JOptionPane.INFORMATION_MESSAGE, icon);
+			getFavoriteName();
+		}
+
+		return null; // wont ever be called since windows wont be closed until
+						// valid input is entered
 
 	}
 
-	// ////////does key listener
-	private class MyDispatcher implements KeyEventDispatcher {
+	// //////// key listener for space par
+	private class MyDispatcherSpace implements KeyEventDispatcher {
 		public boolean dispatchKeyEvent(KeyEvent e) {
 			if (e.getID() == KeyEvent.KEY_PRESSED) {
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {// /if key pressed
@@ -262,4 +287,36 @@ public class ColorSamplerWindow extends JFrame {
 		}
 	}
 
+	private class MyDispatcherF implements KeyEventDispatcher {
+
+		public boolean dispatchKeyEvent(KeyEvent e) {
+			System.out.println(e.getID());
+			//if (e.getID() == KeyEvent.VK_SPACE) {
+
+				System.out.println(e.getKeyChar());
+				if (e.getKeyChar() == 'f') {// /if F key pressed
+
+					if (run) {
+						ImageIcon icon = new ImageIcon(
+								"/res/images/colorWheel.png", "color wheel");
+						JOptionPane.showMessageDialog(frame,
+								"Please freeze program first.", "Error",
+								JOptionPane.INFORMATION_MESSAGE, icon);
+					} else {
+						try {
+							String name = getFavoriteName();
+
+							favorites.addFavorite(new colorFavorite(screenInfo
+									.getColor(frozenMouseLocation), name));
+						} catch (AWTException f) {
+							// TODO Auto-generated catch block
+							f.printStackTrace();
+						}
+
+					}
+				}
+			//}
+			return false;
+		}
+	}
 }
