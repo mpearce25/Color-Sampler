@@ -28,15 +28,18 @@ public class Utilities {
 
 	public static void writeFile(String fileName, ArrayList<colorFavorite> array)
 			throws IOException {
-		
+		System.out.println("Writing file");
 		File file = new File("fileName");
 		file.delete();		//gets rid of all old files to prevent duplicates
+		
+
 		
 		BufferedWriter outFile = new BufferedWriter(new FileWriter(fileName));
 		
 		for (colorFavorite name : array) {
 			outFile.write(name.toString());
 			outFile.newLine();
+			System.out.println("writing line");
 		}
 
 		outFile.close();

@@ -15,7 +15,32 @@ public class favorites {
 	}
 
 	
-	
+	public void populateArray() throws IOException{
+		File f = new File("list.txt");
+
+		if (fileExists("list.txt")) {
+
+			BufferedReader inFile = new BufferedReader(new FileReader(f));
+			String fileRead = inFile.readLine();
+
+			clearArray();
+			while (fileRead != null) {
+
+				String colorName = fileRead.substring(
+						fileRead.indexOf(':') + 1, fileRead.indexOf(','));
+				String colorHex = fileRead.substring(
+						fileRead.indexOf(':', fileRead.indexOf(',')) + 1,
+						fileRead.length() - 1);
+
+				favoritesList.add(new colorFavorite(Color.decode(colorHex),
+						colorName));
+				fileRead = inFile.readLine();
+
+			}
+			f.delete();
+			
+			inFile.close();}
+	}
 	public void addFavorite(colorFavorite favorite) throws IOException {
 		favoritesList.add(favorite);
 
@@ -27,9 +52,7 @@ public class favorites {
 	}
 
 	public static void writeList() throws IOException {
-		if (fileExists("list.txt")) {
-			updateArray();
-		}
+		updateArray();
 		Utilities.writeFile("list.txt", favoritesList);
 	}
 
@@ -46,14 +69,15 @@ public class favorites {
 
 	public static void updateArray() throws IOException {
 
+		
 		File f = new File("list.txt");
 
-		if (f.exists() && !f.isDirectory()) {
-			// @SuppressWarnings("unused");
+		if (fileExists("list.txt")) {
 
 			BufferedReader inFile = new BufferedReader(new FileReader(f));
 			String fileRead = inFile.readLine();
 
+			clearArray();
 			while (fileRead != null) {
 
 				String colorName = fileRead.substring(
@@ -68,7 +92,7 @@ public class favorites {
 
 			}
 			f.delete();
-
+			
 			inFile.close();
 
 		}

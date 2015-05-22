@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -161,20 +162,19 @@ public class ColorSamplerWindow extends JFrame {
 							JOptionPane.INFORMATION_MESSAGE, icon);
 				} else {
 					try {
-						favoritesList.updateArray(); // adds existing entried
-														// first
-						String name = getFavoriteName();
-
-						favoritesList.addFavorite(new colorFavorite(screenInfo
-								.getColor(frozenMouseLocation), name));
-					} catch (AWTException | IOException e) {
+						addNewFavorite();
+					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} catch (AWTException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					}
 
 				}
 			}
-		});
+		);
 
 		toolbar.add(addFavorite);
 
@@ -186,8 +186,7 @@ public class ColorSamplerWindow extends JFrame {
 		favoritesButtton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-
-					favoritesList.writeList();
+					favoritesList.populateArray();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -242,13 +241,14 @@ public class ColorSamplerWindow extends JFrame {
 		}
 	}
 
-	public static String getFavoriteName() { // //input dialog for name
+	public static String getFavoriteName() throws IOException { // //input dialog for name
 
 		// //////create ask name window
 
 		ImageIcon icon = new ImageIcon("/res/images/colorWheel.png",
 				"colorWheel");
 
+		favoritesList.populateArray();
 		int nextElement = favoritesList.getArray().size();
 
 		String s = (String) JOptionPane.showInputDialog(frame,
@@ -274,7 +274,6 @@ public class ColorSamplerWindow extends JFrame {
 
 	}
 	
-	@SuppressWarnings("unused")
 	public static void addNewFavorite() throws IOException, AWTException{
 		String name = getFavoriteName();
 
