@@ -38,7 +38,7 @@ public class favorites {
 				fileRead = inFile.readLine();
 
 			}
-			f.delete();
+			//f.delete();
 			
 			inFile.close();}
 	}

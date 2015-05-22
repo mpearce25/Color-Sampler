@@ -170,11 +170,10 @@ public class ColorSamplerWindow extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					}
-
 				}
+
 			}
-		);
+		});
 
 		toolbar.add(addFavorite);
 
@@ -187,12 +186,13 @@ public class ColorSamplerWindow extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				try {
 					favoritesList.populateArray();
-					System.out.println(favoritesList);
+					// System.out.println(favoritesList);
+					new favoritesWindow("Favorites", favoritesList.getArray());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 
@@ -242,7 +242,9 @@ public class ColorSamplerWindow extends JFrame {
 		}
 	}
 
-	public static String getFavoriteName() throws IOException { // //input dialog for name
+	public static String getFavoriteName() throws IOException { // //input
+																// dialog for
+																// name
 
 		// //////create ask name window
 
@@ -274,8 +276,8 @@ public class ColorSamplerWindow extends JFrame {
 						// valid input is entered
 
 	}
-	
-	public static void addNewFavorite() throws IOException, AWTException{
+
+	public static void addNewFavorite() throws IOException, AWTException {
 		String name = getFavoriteName();
 
 		favoritesList.updateArray();
@@ -303,8 +305,7 @@ public class ColorSamplerWindow extends JFrame {
 			}
 			return false;
 		}
-		
-		
+
 	}
 
 	private class MyDispatcherF implements KeyEventDispatcher {
@@ -336,6 +337,5 @@ public class ColorSamplerWindow extends JFrame {
 			return false;
 		}
 	}
-	
-	
+
 }
