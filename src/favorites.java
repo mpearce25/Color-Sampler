@@ -17,15 +17,16 @@ public class favorites {
 	
 	public void populateArray() throws IOException{
 		File f = new File("list.txt");
-
-		if (fileExists("list.txt")) {
-
+		
+		if (f.exists()) {
+			System.out.println("populating");
 			BufferedReader inFile = new BufferedReader(new FileReader(f));
 			String fileRead = inFile.readLine();
 
 			clearArray();
 			while (fileRead != null) {
 
+				
 				String colorName = fileRead.substring(
 						fileRead.indexOf(':') + 1, fileRead.indexOf(','));
 				String colorHex = fileRead.substring(

@@ -187,11 +187,12 @@ public class ColorSamplerWindow extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				try {
 					favoritesList.populateArray();
+					System.out.println(favoritesList);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println(favoritesList);
+				
 			}
 		});
 

@@ -1,0 +1,2 @@
+Name:Favorite #1,Hex Code:#0deded
+Name:Favorite #2,Hex Code:#1f2527
