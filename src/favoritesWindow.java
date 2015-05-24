@@ -1,5 +1,6 @@
 import java.awt.AWTException;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 
 public class favoritesWindow {
 
@@ -38,14 +40,16 @@ public class favoritesWindow {
 
 	private void initFavoritesList(ArrayList<colorFavorite> array) {
 
+		
 		listModel = new DefaultListModel<>();
 
 		for (colorFavorite favorite : array) {
-			listModel.addElement(favorite);
+			listModel.addElement(favorite); // adds all array elements to jlist
 		}
 
 		// create the list
 		favoritesList = new JList<>(listModel);
+		// favoritesList.setBorder(new LineBorder(Color.BLUE));
 		favoritesWindow.add(favoritesList);
 
 	}
@@ -64,10 +68,9 @@ public class favoritesWindow {
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
-				
-				if(favoritesList.getSelectedIndices().length > 0){
+				if (favoritesList.getSelectedIndices().length > 0) {
 					int[] selectedElements = favoritesList.getSelectedIndices();
-					for(int i = selectedElements.length-1; i >= 0; i --){
+					for (int i = selectedElements.length - 1; i >= 0; i--) {
 						listModel.removeElementAt(selectedElements[i]);
 						array.remove(selectedElements[i]);
 						try {
@@ -78,9 +81,6 @@ public class favoritesWindow {
 						}
 					}
 				}
-					
-				
-
 			}
 		});
 
@@ -118,7 +118,6 @@ public class favoritesWindow {
 		favoritesWindow.setTitle(title);
 		favoritesWindow.setLocation(400, 0);
 		favoritesWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
 	}
 
 	private void initCopyToolbar() {
@@ -135,16 +134,20 @@ public class favoritesWindow {
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
-				if(favoritesList.getSelectedIndex() == -1){ //if nothing is selected
-					JOptionPane.showMessageDialog(favoritesWindow, "Please select at least one favorite.");
+				if (favoritesList.getSelectedIndex() == -1) { // if nothing is
+																// selected
+					JOptionPane.showMessageDialog(favoritesWindow,
+							"Please select at least one favorite.");
+				} else if (favoritesList.getSelectedIndices().length > 1) { // ///if
+																			// mutiple
+																			// are
+																			// selected
+					JOptionPane.showMessageDialog(favoritesWindow,
+							"Please only select one favorite.");
+				} else {
+					Utilities.setClipboard((array.get(favoritesList
+							.getSelectedIndex()).getHex()));
 				}
-				else if (favoritesList.getSelectedIndices().length > 1){ /////if mutiple are selected
-					JOptionPane.showMessageDialog(favoritesWindow, "Please only select one favorite.");
-				}
-				else{
-					Utilities.setClipboard((array.get(favoritesList.getSelectedIndex()).getHex()));
-				}
-				
 			}
 		});
 
@@ -159,14 +162,19 @@ public class favoritesWindow {
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
-				if(favoritesList.getSelectedIndex() == -1){ //if nothing is selected
-					JOptionPane.showMessageDialog(favoritesWindow, "Please select at least one favorite.");
-				}
-				else if (favoritesList.getSelectedIndices().length > 1){ /////if mutiple are selected
-					JOptionPane.showMessageDialog(favoritesWindow, "Please only select one favorite.");
-				}
-				else{ // when only one is selected
-					Utilities.setClipboard((array.get(favoritesList.getSelectedIndex()).getRGB()));
+				if (favoritesList.getSelectedIndex() == -1) { // if nothing is
+																// selected
+					JOptionPane.showMessageDialog(favoritesWindow,
+							"Please select at least one favorite.");
+				} else if (favoritesList.getSelectedIndices().length > 1) { // ///if
+																			// mutiple
+																			// are
+																			// selected
+					JOptionPane.showMessageDialog(favoritesWindow,
+							"Please only select one favorite.");
+				} else { // when only one is selected
+					Utilities.setClipboard((array.get(favoritesList
+							.getSelectedIndex()).getRGB()));
 				}
 			}
 		});
