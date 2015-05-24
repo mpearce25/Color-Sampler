@@ -186,7 +186,6 @@ public class ColorSamplerWindow extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				try {
 					favoritesList.populateArray();
-					// System.out.println(favoritesList);
 					new favoritesWindow("Favorites", favoritesList.getArray());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -242,6 +241,7 @@ public class ColorSamplerWindow extends JFrame {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	public static String getFavoriteName() throws IOException { // //input
 																// dialog for
 																// name
@@ -252,15 +252,18 @@ public class ColorSamplerWindow extends JFrame {
 				"colorWheel");
 
 		favoritesList.populateArray();
+
 		int nextElement = favoritesList.getArray().size();
+
+		
+		// /////
 
 		String s = (String) JOptionPane.showInputDialog(frame,
 				"Enter favorite name", "Add Favorite",
 				JOptionPane.PLAIN_MESSAGE, icon, null, // makes it empty string
 														// box
 				"Favorite #" + (nextElement + 1)); // +1 is so that names start
-													// at
-													// #1 not #0
+													// at #1 not #0
 
 		// If a string was returned, say so.
 		if ((s != null) && (s.length() > 0)) {
@@ -285,7 +288,7 @@ public class ColorSamplerWindow extends JFrame {
 				.getColor(frozenMouseLocation), name));
 	}
 
-	// //////// key listener for space par
+	// //////// key listener for space bar
 	private static class MyDispatcherSpace implements KeyEventDispatcher {
 		public boolean dispatchKeyEvent(KeyEvent e) {
 			if (e.getID() == KeyEvent.KEY_PRESSED) {

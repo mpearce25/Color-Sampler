@@ -1,4 +1,4 @@
-Name:Favorite #1,Hex Code:#00064c
-Name:Favorite #2,Hex Code:#00df0e
-Name:number 3,Hex Code:#0df1d2
-Name:Favorite #4,Hex Code:#ffffff
+Name:Favorite #1,Hex Code:#000eae
+Name:Favorite #2,Hex Code:#00eaea
+Name:Favorite #3,Hex Code:#0eaeae
+Name:Favorite #4,Hex Code:#e5e5e5

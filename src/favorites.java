@@ -19,7 +19,7 @@ public class favorites {
 		File f = new File("list.txt");
 		
 		if (f.exists()) {
-			System.out.println("populating");
+			
 			BufferedReader inFile = new BufferedReader(new FileReader(f));
 			String fileRead = inFile.readLine();
 

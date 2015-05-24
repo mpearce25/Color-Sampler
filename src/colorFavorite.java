@@ -10,6 +10,11 @@ public class colorFavorite {
 		this.color = color;
 		this.name = name;
 	}
+	
+	public String getName(){
+		return name;
+		
+	}
 	public String toString(){
 	
 		return "Name:" + name + "," + "Hex Code:" + Utilities.convertToHex(color) ;
