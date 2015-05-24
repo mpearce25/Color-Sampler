@@ -20,8 +20,9 @@ public class ColorSamplerWindow extends JFrame {
 	private static doublePoint frozenMouseLocation = new doublePoint(0, 0);
 	private static favorites favoritesList;
 
-	public ColorSamplerWindow(String title) throws IOException, AWTException {
+	public ColorSamplerWindow(String title) throws IOException, AWTException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		// //lookup baloon tip
 		favoritesList = new favorites();
 		initFrame(title);
@@ -99,6 +100,7 @@ public class ColorSamplerWindow extends JFrame {
 		buttonCopyHex.setPreferredSize(new Dimension(150, 35));
 		buttonCopyHex.setFocusable(false);
 
+		//buttonCopyHex.setBackground(Color.GREEN);
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
