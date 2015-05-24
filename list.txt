@@ -1,4 +1,1 @@
-Name:Favorite #1,Hex Code:#000eae
-Name:Favorite #2,Hex Code:#00eaea
-Name:Favorite #3,Hex Code:#0eaeae
-Name:Favorite #4,Hex Code:#e5e5e5
+Name:Orange,Hex Code:#0e55f0
