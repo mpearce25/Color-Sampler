@@ -10,6 +10,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
@@ -134,6 +135,16 @@ public class favoritesWindow {
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
+				if(favoritesList.getSelectedIndex() == -1){ //if nothing is selected
+					JOptionPane.showMessageDialog(favoritesWindow, "Please select at least one favorite.");
+				}
+				else if (favoritesList.getSelectedIndices().length > 1){ /////if mutiple are selected
+					JOptionPane.showMessageDialog(favoritesWindow, "Please only select one favorite.");
+				}
+				else{
+					Utilities.setClipboard((array.get(favoritesList.getSelectedIndex()).getHex()));
+				}
+				
 			}
 		});
 
@@ -148,6 +159,15 @@ public class favoritesWindow {
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
+				if(favoritesList.getSelectedIndex() == -1){ //if nothing is selected
+					JOptionPane.showMessageDialog(favoritesWindow, "Please select at least one favorite.");
+				}
+				else if (favoritesList.getSelectedIndices().length > 1){ /////if mutiple are selected
+					JOptionPane.showMessageDialog(favoritesWindow, "Please only select one favorite.");
+				}
+				else{ // when only one is selected
+					Utilities.setClipboard((array.get(favoritesList.getSelectedIndex()).getRGB()));
+				}
 			}
 		});
 
