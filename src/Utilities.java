@@ -28,7 +28,7 @@ public class Utilities {
 
 	public static void writeFile(String fileName, ArrayList<colorFavorite> array)
 			throws IOException {
-		File file = new File("fileName");
+		File file = new File(fileName);
 		file.delete();		//gets rid of all old files to prevent duplicates
 		
 
