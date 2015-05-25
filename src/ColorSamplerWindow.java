@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class ColorSamplerWindow extends JFrame {
@@ -91,14 +95,17 @@ public class ColorSamplerWindow extends JFrame {
 	// //// ToolBar
 	private void initToolbar() {
 		toolbar = new JToolBar("Copy Commands");
-		toolbar.setPreferredSize(new Dimension(400, 35));
+		toolbar.setPreferredSize(new Dimension(426, 42));
 		toolbar.setFloatable(false);
 		toolbar.setFocusable(false);
+		toolbar.setBackground(new Color(126, 147, 158));
+		toolbar.setBorder(new LineBorder(Color.WHITE));
+		toolbar.addSeparator(new Dimension(4,0));
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
-		buttonCopyHex.setPreferredSize(new Dimension(150, 35));
-		buttonCopyHex.setFocusable(false);
+		designUtilities.setMaterialButton(buttonCopyHex, new Dimension(150,35));
+		
 
 		//buttonCopyHex.setBackground(Color.GREEN);
 		buttonCopyHex.addActionListener(new ActionListener() {
@@ -123,13 +130,15 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyHex);
-		// toolbar.addSeparator();
+		toolbar.addSeparator(new Dimension(4,0));
 
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
-		buttonCopyRGB.setPreferredSize(new Dimension(150, 35));
-		buttonCopyRGB.setFocusable(false);
-
+		designUtilities.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
+		//buttonCopyRGB.setBorderPainted(false);
+		
+		
+		
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
@@ -148,12 +157,12 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyRGB);
-		toolbar.addSeparator();
+		toolbar.addSeparator(new Dimension(10,0));
+		
 
 		// //////////Add to favorites button
 		JButton addFavorite = new JButton("Add Favorite");
-		addFavorite.setPreferredSize(new Dimension(150, 35));
-		addFavorite.setFocusable(false);
+		designUtilities.setMaterialButton(addFavorite, new Dimension(150,35));
 		addFavorite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (run) {
@@ -178,12 +187,12 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(addFavorite);
+		toolbar.addSeparator(new Dimension(4,0));
 
 		// /////Favorites
 
 		JButton favoritesButtton = new JButton("Favorites");
-		favoritesButtton.setPreferredSize(new Dimension(150, 35));
-		favoritesButtton.setFocusable(false);
+		designUtilities.setMaterialButton(favoritesButtton, new Dimension(150,35));
 		favoritesButtton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
@@ -198,6 +207,7 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(favoritesButtton);
+		toolbar.addSeparator(new Dimension(4,0));
 
 		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
 	}
@@ -211,6 +221,7 @@ public class ColorSamplerWindow extends JFrame {
 	private void initColorInfoLabel() {
 
 		colorInfo = new JLabel("", SwingConstants.CENTER);
+		//colorInfo.setOpaque(true);
 		colorInfo.setBackground(new Color(255, 255, 255));
 		colorInfo.setPreferredSize(new Dimension(400, 25));
 		frame.getContentPane().add(colorInfo, BorderLayout.SOUTH);
@@ -221,6 +232,8 @@ public class ColorSamplerWindow extends JFrame {
 		colorInfo.setText(text);
 
 	}
+	
+	
 
 	public static void initColorUpdater() throws AWTException {
 
@@ -342,5 +355,6 @@ public class ColorSamplerWindow extends JFrame {
 			return false;
 		}
 	}
+	
 
 }
