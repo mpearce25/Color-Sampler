@@ -95,10 +95,10 @@ public class ColorSamplerWindow extends JFrame {
 	// //// ToolBar
 	private void initToolbar() {
 		toolbar = new JToolBar("Copy Commands");
-		toolbar.setPreferredSize(new Dimension(426, 42));
+		toolbar.setPreferredSize(new Dimension(424, 42));
 		toolbar.setFloatable(false);
 		toolbar.setFocusable(false);
-		toolbar.setBackground(new Color(126, 147, 158));
+		toolbar.setBackground(new Color(255,255,255));
 		toolbar.setBorder(new LineBorder(Color.WHITE));
 		toolbar.addSeparator(new Dimension(4,0));
 
@@ -157,7 +157,7 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyRGB);
-		toolbar.addSeparator(new Dimension(10,0));
+		toolbar.addSeparator(new Dimension(8,0));
 		
 
 		// //////////Add to favorites button
