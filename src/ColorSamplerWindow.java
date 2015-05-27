@@ -24,9 +24,12 @@ public class ColorSamplerWindow extends JFrame {
 	private static doublePoint frozenMouseLocation = new doublePoint(0, 0);
 	private static favorites favoritesList;
 
-	public ColorSamplerWindow(String title) throws IOException, AWTException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public ColorSamplerWindow(String title) throws IOException, AWTException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException, UnsupportedLookAndFeelException {
 
-		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		UIManager.setLookAndFeel(UIManager
+				.getCrossPlatformLookAndFeelClassName());
 		// //lookup baloon tip
 		favoritesList = new favorites();
 		initFrame(title);
@@ -98,16 +101,16 @@ public class ColorSamplerWindow extends JFrame {
 		toolbar.setPreferredSize(new Dimension(424, 42));
 		toolbar.setFloatable(false);
 		toolbar.setFocusable(false);
-		toolbar.setBackground(new Color(255,255,255));
+		toolbar.setBackground(new Color(255, 255, 255));
 		toolbar.setBorder(new LineBorder(Color.WHITE));
-		toolbar.addSeparator(new Dimension(4,0));
+		toolbar.addSeparator(new Dimension(4, 0));
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
-		designUtilities.setMaterialButton(buttonCopyHex, new Dimension(150,35));
-		
+		designUtilities
+				.setMaterialButton(buttonCopyHex, new Dimension(150, 35));
 
-		//buttonCopyHex.setBackground(Color.GREEN);
+		// buttonCopyHex.setBackground(Color.GREEN);
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
@@ -130,15 +133,14 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyHex);
-		toolbar.addSeparator(new Dimension(4,0));
+		toolbar.addSeparator(new Dimension(4, 0));
 
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
-		designUtilities.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
-		//buttonCopyRGB.setBorderPainted(false);
-		
-		
-		
+		designUtilities
+				.setMaterialButton(buttonCopyRGB, new Dimension(150, 35));
+		// buttonCopyRGB.setBorderPainted(false);
+
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
@@ -157,12 +159,11 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(buttonCopyRGB);
-		toolbar.addSeparator(new Dimension(8,0));
-		
+		toolbar.addSeparator(new Dimension(8, 0));
 
 		// //////////Add to favorites button
 		JButton addFavorite = new JButton("Add Favorite");
-		designUtilities.setMaterialButton(addFavorite, new Dimension(150,35));
+		designUtilities.setMaterialButton(addFavorite, new Dimension(150, 35));
 		addFavorite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (run) {
@@ -187,12 +188,13 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(addFavorite);
-		toolbar.addSeparator(new Dimension(4,0));
+		toolbar.addSeparator(new Dimension(4, 0));
 
 		// /////Favorites
 
 		JButton favoritesButtton = new JButton("Favorites");
-		designUtilities.setMaterialButton(favoritesButtton, new Dimension(150,35));
+		designUtilities.setMaterialButton(favoritesButtton, new Dimension(150,
+				35));
 		favoritesButtton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
@@ -207,7 +209,7 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(favoritesButtton);
-		toolbar.addSeparator(new Dimension(4,0));
+		toolbar.addSeparator(new Dimension(4, 0));
 
 		frame.getContentPane().add(toolbar, BorderLayout.NORTH);
 	}
@@ -221,7 +223,7 @@ public class ColorSamplerWindow extends JFrame {
 	private void initColorInfoLabel() {
 
 		colorInfo = new JLabel("", SwingConstants.CENTER);
-		//colorInfo.setOpaque(true);
+		// colorInfo.setOpaque(true);
 		colorInfo.setBackground(new Color(255, 255, 255));
 		colorInfo.setPreferredSize(new Dimension(400, 25));
 		frame.getContentPane().add(colorInfo, BorderLayout.SOUTH);
@@ -232,7 +234,7 @@ public class ColorSamplerWindow extends JFrame {
 		colorInfo.setText(text);
 
 	}
-	
+
 	public static void initColorUpdater() throws AWTException {
 
 		doublePoint mouseLocation;
@@ -258,7 +260,6 @@ public class ColorSamplerWindow extends JFrame {
 	public static String getFavoriteName() throws IOException { // //input
 																// dialog for
 																// name
-
 		// //////create ask name window
 
 		ImageIcon icon = new ImageIcon("/res/images/colorWheel.png",
@@ -268,7 +269,6 @@ public class ColorSamplerWindow extends JFrame {
 
 		int nextElement = favoritesList.getArray().size();
 
-		
 		// /////
 
 		String s = (String) JOptionPane.showInputDialog(frame,
@@ -278,18 +278,7 @@ public class ColorSamplerWindow extends JFrame {
 				"Favorite #" + (nextElement + 1)); // +1 is so that names start
 													// at #1 not #0
 
-		// If a string was returned, say so.
-		if ((s != null) && (s.length() > 0)) {
-
-			return s;
-		} else {
-			JOptionPane.showMessageDialog(frame, "Please enter a name",
-					"Error", JOptionPane.INFORMATION_MESSAGE, icon);
-			getFavoriteName();
-		}
-
-		return null; // wont ever be called since windows wont be closed until
-						// valid input is entered
+		return s;
 
 	}
 
@@ -353,6 +342,5 @@ public class ColorSamplerWindow extends JFrame {
 			return false;
 		}
 	}
-	
 
 }
