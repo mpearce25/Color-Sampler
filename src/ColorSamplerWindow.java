@@ -233,8 +233,6 @@ public class ColorSamplerWindow extends JFrame {
 
 	}
 	
-	
-
 	public static void initColorUpdater() throws AWTException {
 
 		doublePoint mouseLocation;

@@ -59,12 +59,14 @@ public class favoritesWindow {
 		manageToolbar.setPreferredSize(new Dimension(400, 35));
 		manageToolbar.setFloatable(false);
 		manageToolbar.setFocusable(false);
+		manageToolbar.setBackground(Color.WHITE);
 
 		// //////// Remove selected
 		JButton buttonCopyHex = new JButton("Remove Selected");
 		buttonCopyHex.setPreferredSize(new Dimension(150, 35));
-		buttonCopyHex.setFocusable(false);
+		designUtilities.setMaterialButton(buttonCopyHex, new Dimension(150,35));
 
+		
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
@@ -89,8 +91,7 @@ public class favoritesWindow {
 
 		// /////Remove all
 		JButton buttonCopyRGB = new JButton("Remove All");
-		buttonCopyRGB.setPreferredSize(new Dimension(150, 35));
-		buttonCopyRGB.setFocusable(false);
+		designUtilities.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
 
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -125,11 +126,10 @@ public class favoritesWindow {
 		copyToolbar.setPreferredSize(new Dimension(400, 35));
 		copyToolbar.setFloatable(false);
 		copyToolbar.setFocusable(false);
-
+		copyToolbar.setBackground(Color.WHITE);
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
-		buttonCopyHex.setPreferredSize(new Dimension(150, 35));
-		buttonCopyHex.setFocusable(false);
+		designUtilities.setMaterialButton(buttonCopyHex, new Dimension(150,35));
 
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -156,7 +156,7 @@ public class favoritesWindow {
 
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
-		buttonCopyRGB.setPreferredSize(new Dimension(150, 35));
+		designUtilities.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
 		buttonCopyRGB.setFocusable(false);
 
 		buttonCopyRGB.addActionListener(new ActionListener() {
