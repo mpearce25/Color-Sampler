@@ -235,20 +235,20 @@ public class ColorSamplerWindow extends JFrame {
 
 	public static void initColorUpdater() throws AWTException {
 
-		doublePoint mouseLocation;
-		int test = 1;
+
+		
 		Robot bot = new Robot();
-		while (test == 1) {
+		while (true) { // always run
 
 			bot.delay(50);
 			if (run) {// lets it constantaly run with out having to re call
 						// method which causes it to crash
-				mouseLocation = screenInfo.getMouseCoordinates();
+
 				ColorSamplerWindow.setColorInfoText("Hex: "
 						+ screenInfo.getColorHex() + "\t\t\t\tRGB: "
 						+ screenInfo.getColorRGB());
 				ColorSamplerWindow.setColorSampleColor(screenInfo.getColor());
-				// bot.delay(500);
+
 			}
 
 		}

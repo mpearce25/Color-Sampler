@@ -75,7 +75,7 @@ public class favoritesWindow {
 		});
 
 		manageToolbar.add(buttonCopyHex);
-		// toolbar.addSeparator();
+		manageToolbar.addSeparator(new Dimension(8,0));
 
 		// /////Remove all
 		JButton buttonCopyRGB = new JButton("Remove All");
@@ -105,13 +105,15 @@ public class favoritesWindow {
 	private void initFrame(String title) {
 		favoritesWindow = new JFrame();
 		favoritesWindow.setTitle(title);
-		favoritesWindow.setLocation(400, 0);
+		favoritesWindow.setLocation(424, 0);
+		favoritesWindow.setPreferredSize(new Dimension(308,260));
 		favoritesWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 	}
 
 	private void initCopyToolbar() {
 		copyToolbar = new JToolBar("Copy Commands");
-		copyToolbar.setPreferredSize(new Dimension(400, 35));
+		copyToolbar.setPreferredSize(new Dimension(408, 35));
 		copyToolbar.setFloatable(false);
 		copyToolbar.setFocusable(false);
 		copyToolbar.setBackground(Color.WHITE);
@@ -140,7 +142,7 @@ public class favoritesWindow {
 		});
 
 		copyToolbar.add(buttonCopyHex);
-		// toolbar.addSeparator();
+		copyToolbar.addSeparator(new Dimension(8,0));
 
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
