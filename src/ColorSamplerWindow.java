@@ -2,15 +2,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
+
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
@@ -188,11 +184,13 @@ public class ColorSamplerWindow extends JFrame {
 		});
 
 		toolbar.add(addFavorite);
+		
 		toolbar.addSeparator(new Dimension(4, 0));
 
 		// /////Favorites
 
 		JButton favoritesButtton = new JButton("Favorites");
+		
 		designUtilities.setMaterialButton(favoritesButtton, new Dimension(150,
 				35));
 		favoritesButtton.addActionListener(new ActionListener() {
@@ -278,6 +276,7 @@ public class ColorSamplerWindow extends JFrame {
 				"Favorite #" + (nextElement + 1)); // +1 is so that names start
 													// at #1 not #0
 
+		
 		return s;
 
 	}

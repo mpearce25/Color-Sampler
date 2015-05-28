@@ -1,7 +1,1 @@
-Name:null,Hex Code:#000000
-Name:null,Hex Code:#000003
-Name:Favorite #3,Hex Code:#00009a
-Name:null,Hex Code:#00095c
-Name:Favorite #5,Hex Code:#00fcfd
-Name:null,Hex Code:#0fbfcf
-Name:Favorite #7,Hex Code:#a9c3e0
+Name:Favorite #1,Hex Code:#dfecf5

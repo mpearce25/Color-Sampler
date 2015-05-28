@@ -1,8 +1,7 @@
 import java.awt.AWTException;
 import java.io.IOException;
 
-import javax.swing.JPanel;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;;
 
 @SuppressWarnings("serial")
 public class ColorSampler extends JPanel {

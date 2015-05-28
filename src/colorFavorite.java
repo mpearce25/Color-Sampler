@@ -34,5 +34,4 @@ public class colorFavorite {
 				+ Utilities.convertToHex(color);
 
 	}
-
 }
