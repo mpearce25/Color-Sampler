@@ -30,7 +30,7 @@ public class colorFavorite {
 
 	public String toString() {
 
-		return "Name:" + name + "," + "Hex Code:"
+		return "Name:" + name  + "," + "Hex Code:"
 				+ Utilities.convertToHex(color);
 
 	}
