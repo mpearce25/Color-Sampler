@@ -14,10 +14,10 @@ public class favoritesWindow {
 	private ArrayList<colorFavorite> array;
 	DefaultListModel<colorFavorite> listModel;
 
-	public favoritesWindow(String title, ArrayList<colorFavorite> array) {
+	public favoritesWindow(String title, ArrayList<colorFavorite> array, doublePoint locationOfColorFavoritesWindow) {
 
 		this.array = array;
-		initFrame(title);
+		initFrame(title, locationOfColorFavoritesWindow, new Dimension(308,260));
 		initCopyToolbar();
 		initManageToolbar();
 		initFavoritesList(array);
@@ -37,23 +37,19 @@ public class favoritesWindow {
 
 		// create the list
 		favoritesList = new JList<>(listModel);
-		// favoritesList.setBorder(new LineBorder(Color.BLUE));
 		favoritesWindow.add(favoritesList);
-
 	}
 
 	private void initManageToolbar() {
 		manageToolbar = new JToolBar("Manage Toolbar");
 		uiUtil.initToolbar(manageToolbar, new doublePoint(400,35), Color.WHITE);
 
-
 		// //////// Remove selected
-		JButton buttonCopyHex = new JButton("Remove Selected");
-		buttonCopyHex.setPreferredSize(new Dimension(150, 35));
-		uiUtil.setMaterialButton(buttonCopyHex, new Dimension(150,35));
-
-		
-		buttonCopyHex.addActionListener(new ActionListener() {
+		JButton removeSelectedButton = new JButton("Remove Selected");
+		removeSelectedButton.setPreferredSize(new Dimension(150, 35));
+		uiUtil.setMaterialButton(removeSelectedButton, new Dimension(150,35));
+	
+		removeSelectedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
 				if (favoritesList.getSelectedIndices().length > 0) {
@@ -64,7 +60,7 @@ public class favoritesWindow {
 						try {
 							Utilities.writeFile("list.txt", array);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -72,14 +68,14 @@ public class favoritesWindow {
 			}
 		});
 
-		manageToolbar.add(buttonCopyHex);
+		manageToolbar.add(removeSelectedButton);
 		manageToolbar.addSeparator(new Dimension(8,0));
 
 		// /////Remove all
-		JButton buttonCopyRGB = new JButton("Remove All");
-		uiUtil.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
+		JButton removeAllButton = new JButton("Remove All");
+		uiUtil.setMaterialButton(removeAllButton, new Dimension(150,35));
 
-		buttonCopyRGB.addActionListener(new ActionListener() {
+		removeAllButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				array.removeAll(array); // /removes all existing favorites array
 										// is the array from the lidt.txt file
@@ -89,20 +85,19 @@ public class favoritesWindow {
 					listModel.removeAllElements();
 
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
 
-		manageToolbar.add(buttonCopyRGB);
+		manageToolbar.add(removeAllButton);
 		favoritesWindow.getContentPane().add(manageToolbar, BorderLayout.SOUTH);
 
 	}
 
-	private void initFrame(String title) {
+	private void initFrame(String title, doublePoint location, Dimension size) {
 		favoritesWindow = new JFrame();
-		uiUtil.initFrame(favoritesWindow, title, new doublePoint(424,0), new Dimension(308,260));
+		uiUtil.initFrame(favoritesWindow, title, location, size);
 
 		favoritesWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //overrides defaut behavoir from initiframe method
 		

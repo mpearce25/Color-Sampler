@@ -37,4 +37,16 @@ public class Utilities {
 		outFile.close();
 	}
 	
+	///////mouse utilities
+	
+	public static doublePoint getMouseCoordinates(){
+		return new doublePoint(getMouseX(), getMouseY());
+	}
+	public static double getMouseX(){
+		return MouseInfo.getPointerInfo().getLocation().getX();
+	}
+	public static double getMouseY(){
+		return MouseInfo.getPointerInfo().getLocation().getY();
+	}
+	
 }

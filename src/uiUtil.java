@@ -9,6 +9,7 @@ public class uiUtil{
 		frame.setLocation((int) location.getX(), (int) location.getY());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	///ads location variable
 	public static void initFrame(JFrame frame, String title, doublePoint location, Dimension size){
 		frame.setTitle(title);
 		frame.setLocation((int) location.getX(), (int) location.getY());
