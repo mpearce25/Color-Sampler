@@ -16,6 +16,13 @@ public class uiUtil{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(size);
 	}
+	//////for relative location
+	public static void initFrame(JFrame frame, String title, JFrame relativeFrame, Dimension size){
+		frame.setTitle(title);
+		frame.setLocationRelativeTo(relativeFrame);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(size);
+	}
 	public static void initToolbar(JToolBar toolbar, doublePoint size,  Color backgroundColor){
 		toolbar.setPreferredSize(new Dimension(size.getIntX(), size.getIntY()));
 		toolbar.setFloatable(false);

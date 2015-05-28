@@ -187,7 +187,7 @@ public class ColorSamplerWindow extends JFrame {
 							colorSamplerWindowFrame.getLocation().getX()
 									+ colorSamplerWindowFrame.getWidth(),
 									colorSamplerWindowFrame.getLocation().getY());
-					new favoritesWindow("Favorites", favorites.getArray(),topRightCornerLocation); // creates popup frame
+					new favoritesWindow("Favorites", favorites.getArray(), topRightCornerLocation); // creates popup frame
 				} catch (IOException e) {
 
 					e.printStackTrace();

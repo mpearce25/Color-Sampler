@@ -16,6 +16,7 @@ public class favoritesWindow {
 
 	public favoritesWindow(String title, ArrayList<colorFavorite> array, doublePoint locationOfColorFavoritesWindow) {
 
+		
 		this.array = array;
 		initFrame(title, locationOfColorFavoritesWindow, new Dimension(308,260));
 		initCopyToolbar();
