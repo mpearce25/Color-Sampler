@@ -44,10 +44,8 @@ public class favoritesWindow {
 
 	private void initManageToolbar() {
 		manageToolbar = new JToolBar("Manage Toolbar");
-		manageToolbar.setPreferredSize(new Dimension(400, 35));
-		manageToolbar.setFloatable(false);
-		manageToolbar.setFocusable(false);
-		manageToolbar.setBackground(Color.WHITE);
+		windowUtil.initToolbar(manageToolbar, new doublePoint(400,35), Color.WHITE);
+
 
 		// //////// Remove selected
 		JButton buttonCopyHex = new JButton("Remove Selected");
@@ -113,10 +111,8 @@ public class favoritesWindow {
 
 	private void initCopyToolbar() {
 		copyToolbar = new JToolBar("Copy Commands");
-		copyToolbar.setPreferredSize(new Dimension(408, 35));
-		copyToolbar.setFloatable(false);
-		copyToolbar.setFocusable(false);
-		copyToolbar.setBackground(Color.WHITE);
+		windowUtil.initToolbar(copyToolbar, new doublePoint(408,35), Color.WHITE);
+		
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
 		designUtilities.setMaterialButton(buttonCopyHex, new Dimension(150,35));

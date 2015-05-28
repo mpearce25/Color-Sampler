@@ -10,12 +10,12 @@ public class ColorSampler extends JPanel {
 
 	public ColorSampler() throws AWTException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		ColorSamplerWindow window = new ColorSamplerWindow(
-				"Color Sampler - Press space to freeze");
+				"Color Sampler - Press space to freeze", new doublePoint(0,0));
 	}
 
 	public static void main(String[] a) throws IOException, AWTException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 
-		window = new ColorSamplerWindow("Color Sampler - Press space to freeze");  ///everything mangaed from here
+		window = new ColorSamplerWindow("Color Sampler - Press space to freeze", new doublePoint(0,0) );  ///everything mangaed from here
 
 	}
 }

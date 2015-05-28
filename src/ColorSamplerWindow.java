@@ -1,45 +1,42 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+
 import java.io.IOException;
 
-
 import javax.swing.*;
-
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class ColorSamplerWindow extends JFrame {
 
 	private static JFrame frame;
-	private static JLabel colorSample;
+	private static JLabel colorSample, colorInfo;
 	private static JToolBar toolbar;
-	private static JLabel colorInfo;
 	private static boolean run = true;
 	private static doublePoint frozenMouseLocation = new doublePoint(0, 0);
 	private static favorites favoritesList;
 
-	public ColorSamplerWindow(String title) throws IOException, AWTException,
+	public ColorSamplerWindow(String title, doublePoint location) throws IOException, AWTException,
 			ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException {
 
-		UIManager.setLookAndFeel(UIManager
-				.getCrossPlatformLookAndFeelClassName());
-		// //lookup baloon tip
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		favoritesList = new favorites();
-		initFrame(title);
+		initFrame(title, location);
 		initToolbar();
 		initColorSample();
 		initColorInfo();// /////creatres label & starts tracking value
 		initSpaceListener();
 		initFListener();
+		
+		displayFrame();
+		
+		initColorUpdater(); // must be run last
+	}
 
+	private void displayFrame() {
 		frame.pack();
 		frame.setVisible(true);// / draws the frame once all components have
-
-		initColorUpdater();
-
 	}
 
 	private void initSpaceListener() {
@@ -56,17 +53,10 @@ public class ColorSamplerWindow extends JFrame {
 	}
 
 	// ////Main JFrame + Menu Bar
-	private void initFrame(String title) throws IOException {
+	private void initFrame(String title, doublePoint location) throws IOException {
 
 		frame = new JFrame();
-		frame.setTitle(title);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	}
-
-	public JFrame getFrame() {
-		return frame;
-
+		windowUtil.initFrame(frame, title, location);
 	}
 
 	// ///// Color sample Jlabels
@@ -77,12 +67,6 @@ public class ColorSamplerWindow extends JFrame {
 		colorSample.setBackground(screenInfo.getColor());
 		colorSample.setPreferredSize(new Dimension(200, 170));
 		frame.getContentPane().add(colorSample, BorderLayout.CENTER);
-
-	}
-
-	public JLabel getColorSample() {
-		return colorSample;
-
 	}
 
 	public static void setColorSampleColor(Color color) {
@@ -93,13 +77,9 @@ public class ColorSamplerWindow extends JFrame {
 
 	// //// ToolBar
 	private void initToolbar() {
-		toolbar = new JToolBar("Copy Commands");
-		toolbar.setPreferredSize(new Dimension(424, 42));
-		toolbar.setFloatable(false);
-		toolbar.setFocusable(false);
-		toolbar.setBackground(new Color(255, 255, 255));
-		toolbar.setBorder(new LineBorder(Color.WHITE));
-		toolbar.addSeparator(new Dimension(4, 0));
+		toolbar = new JToolBar();
+		windowUtil.initToolbar(toolbar, new doublePoint(424,42), Color.WHITE);
+		toolbar.addSeparator(new Dimension(4,0));
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
@@ -112,8 +92,7 @@ public class ColorSamplerWindow extends JFrame {
 				try {
 
 					if (run) {
-						Utilities.setClipboard(screenInfo.getColorHex()); // sets
-																			// to
+						Utilities.setClipboard(screenInfo.getColorHex()); // sets													// to
 																			// current
 					} else {
 						// if program is not running will use paused values
