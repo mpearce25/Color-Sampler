@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+
 
 @SuppressWarnings("serial")
 public class ColorSamplerWindow extends JFrame {
@@ -56,7 +56,7 @@ public class ColorSamplerWindow extends JFrame {
 	private void initFrame(String title, doublePoint location) throws IOException {
 
 		frame = new JFrame();
-		windowUtil.initFrame(frame, title, location);
+		uiUtil.initFrame(frame, title, location);
 	}
 
 	// ///// Color sample Jlabels
@@ -78,13 +78,13 @@ public class ColorSamplerWindow extends JFrame {
 	// //// ToolBar
 	private void initToolbar() {
 		toolbar = new JToolBar();
-		windowUtil.initToolbar(toolbar, new doublePoint(424,42), Color.WHITE);
+		uiUtil.initToolbar(toolbar, new doublePoint(424,42), Color.WHITE);
 		toolbar.addSeparator(new Dimension(4,0));
 
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
-		designUtilities
-				.setMaterialButton(buttonCopyHex, new Dimension(150, 35));
+
+				uiUtil.setMaterialButton(buttonCopyHex, new Dimension(150, 35));
 
 		// buttonCopyHex.setBackground(Color.GREEN);
 		buttonCopyHex.addActionListener(new ActionListener() {
@@ -112,8 +112,8 @@ public class ColorSamplerWindow extends JFrame {
 
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
-		designUtilities
-				.setMaterialButton(buttonCopyRGB, new Dimension(150, 35));
+		
+				uiUtil.setMaterialButton(buttonCopyRGB, new Dimension(150, 35));
 		// buttonCopyRGB.setBorderPainted(false);
 
 		buttonCopyRGB.addActionListener(new ActionListener() {
@@ -138,7 +138,7 @@ public class ColorSamplerWindow extends JFrame {
 
 		// //////////Add to favorites button
 		JButton addFavorite = new JButton("Add Favorite");
-		designUtilities.setMaterialButton(addFavorite, new Dimension(150, 35));
+		uiUtil.setMaterialButton(addFavorite, new Dimension(150, 35));
 		addFavorite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (run) {
@@ -170,13 +170,13 @@ public class ColorSamplerWindow extends JFrame {
 
 		JButton favoritesButtton = new JButton("Favorites");
 		
-		designUtilities.setMaterialButton(favoritesButtton, new Dimension(150,
+		uiUtil.setMaterialButton(favoritesButtton, new Dimension(150,
 				35));
 		favoritesButtton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
 					favoritesList.populateArray();
-					new favoritesWindow("Favorites", favoritesList.getArray());
+					new favoritesWindow("Favorites", favorites.getArray());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

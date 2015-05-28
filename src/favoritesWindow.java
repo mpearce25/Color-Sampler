@@ -44,13 +44,13 @@ public class favoritesWindow {
 
 	private void initManageToolbar() {
 		manageToolbar = new JToolBar("Manage Toolbar");
-		windowUtil.initToolbar(manageToolbar, new doublePoint(400,35), Color.WHITE);
+		uiUtil.initToolbar(manageToolbar, new doublePoint(400,35), Color.WHITE);
 
 
 		// //////// Remove selected
 		JButton buttonCopyHex = new JButton("Remove Selected");
 		buttonCopyHex.setPreferredSize(new Dimension(150, 35));
-		designUtilities.setMaterialButton(buttonCopyHex, new Dimension(150,35));
+		uiUtil.setMaterialButton(buttonCopyHex, new Dimension(150,35));
 
 		
 		buttonCopyHex.addActionListener(new ActionListener() {
@@ -77,7 +77,7 @@ public class favoritesWindow {
 
 		// /////Remove all
 		JButton buttonCopyRGB = new JButton("Remove All");
-		designUtilities.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
+		uiUtil.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
 
 		buttonCopyRGB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -102,20 +102,19 @@ public class favoritesWindow {
 
 	private void initFrame(String title) {
 		favoritesWindow = new JFrame();
-		favoritesWindow.setTitle(title);
-		favoritesWindow.setLocation(424, 0);
-		favoritesWindow.setPreferredSize(new Dimension(308,260));
-		favoritesWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		uiUtil.initFrame(favoritesWindow, title, new doublePoint(424,0), new Dimension(308,260));
+
+		favoritesWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //overrides defaut behavoir from initiframe method
 		
 	}
 
 	private void initCopyToolbar() {
 		copyToolbar = new JToolBar("Copy Commands");
-		windowUtil.initToolbar(copyToolbar, new doublePoint(408,35), Color.WHITE);
+		uiUtil.initToolbar(copyToolbar, new doublePoint(408,35), Color.WHITE);
 		
 		// ////////Copy Hex button
 		JButton buttonCopyHex = new JButton("Copy Hex");
-		designUtilities.setMaterialButton(buttonCopyHex, new Dimension(150,35));
+		uiUtil.setMaterialButton(buttonCopyHex, new Dimension(150,35));
 
 		buttonCopyHex.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -142,7 +141,7 @@ public class favoritesWindow {
 
 		// /////Copy RGB button
 		JButton buttonCopyRGB = new JButton("Copy RGB");
-		designUtilities.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
+		uiUtil.setMaterialButton(buttonCopyRGB, new Dimension(150,35));
 		buttonCopyRGB.setFocusable(false);
 
 		buttonCopyRGB.addActionListener(new ActionListener() {
