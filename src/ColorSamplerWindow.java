@@ -186,8 +186,10 @@ public class ColorSamplerWindow extends JFrame {
 					doublePoint topRightCornerLocation = new doublePoint(
 							colorSamplerWindowFrame.getLocation().getX()
 									+ colorSamplerWindowFrame.getWidth(),
+
 									colorSamplerWindowFrame.getLocation().getY() + 20); //need + 20 to properly align
 					new favoritesWindow("Favorites", favorites.getArray(),topRightCornerLocation); // creates popup frame
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
