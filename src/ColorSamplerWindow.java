@@ -8,10 +8,10 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class ColorSamplerWindow extends JFrame {
 
-	private static JFrame colorSamplerWindowFrame;
+	private static  JFrame colorSamplerWindowFrame;
 	private static JLabel colorSample, colorInfo;
 	private static JToolBar toolbar;
-	private static boolean run = true;
+	private static  boolean run = true;
 	private static doublePoint frozenMouseLocation = new doublePoint(0, 0);
 	private static favorites favoritesList;
 
@@ -29,9 +29,8 @@ public class ColorSamplerWindow extends JFrame {
 		initColorInfo();// /////creatres label & starts tracking value
 		initSpaceListener();
 		initFListener();
-
 		displayFrame();
-
+		
 		initColorUpdater(); // must be run last
 	}
 

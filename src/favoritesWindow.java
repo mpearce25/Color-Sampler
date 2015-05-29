@@ -1,18 +1,20 @@
 import java.awt.*;
-import java.awt.Dimension;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class favoritesWindow {
 
 	private JFrame favoritesWindow;
-	private static JToolBar copyToolbar;
-	private static JToolBar manageToolbar;
-	private static JList<colorFavorite> favoritesList;
+	private JToolBar copyToolbar;
+	private JToolBar manageToolbar;
+	private JList<colorFavorite> favoritesList;
 	private ArrayList<colorFavorite> array;
-	DefaultListModel<colorFavorite> listModel;
+	private DefaultListModel<colorFavorite> listModel;
+	
+	private JTable favoritesListTable;
 
 	public favoritesWindow(String title, ArrayList<colorFavorite> array, doublePoint locationOfColorFavoritesWindow) {
 
@@ -30,15 +32,27 @@ public class favoritesWindow {
 	private void initFavoritesList(ArrayList<colorFavorite> array) {
 
 		
-		listModel = new DefaultListModel<>();
-
-		for (colorFavorite favorite : array) {
+		
+		String[] columnNames = {"Name", "Hex Code"};
+		
+		Object[][] data = {
+			    {"yellow", "random hex"},{"yellohgjdfgsw", "random fgdhex"},
+			   
+			};
+		
+		//listModel = new DefaultListModel<>();
+		favoritesListTable = new JTable(data,columnNames);
+		//favoritesListTable.setModel(new MyTableModel()); // causing error
+		
+		/*for (colorFavorite favorite : array) {
 			listModel.addElement(favorite); // adds all array elements to jlist
-		}
+		}*/
 
 		// create the list
-		favoritesList = new JList<>(listModel);
-		favoritesWindow.add(favoritesList);
+		//favoritesList = new JList<>(listModel);
+		
+		favoritesWindow.add(favoritesListTable);
+		//favoritesWindow.add(favoritesList);
 	}
 
 	private void initManageToolbar() {
@@ -47,7 +61,7 @@ public class favoritesWindow {
 
 		// //////// Remove selected
 		JButton removeSelectedButton = new JButton("Remove Selected");
-		removeSelectedButton.setPreferredSize(new Dimension(150, 35));
+		
 		uiUtil.setMaterialButton(removeSelectedButton, new Dimension(150,35));
 	
 		removeSelectedButton.addActionListener(new ActionListener() {
